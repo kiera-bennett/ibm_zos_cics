@@ -44,6 +44,66 @@ and ansible-doc to:
 - Provision or deprovision CICS regions.
 - Start or stop a CICS region.
 
+  
+## Installation
+
+
+You can install this collection with the Ansible Galaxy command-line tool:
+```sh
+ansible-galaxy collection install ibm.ibm_zos_cics
+```
+
+
+You can also include it in a requirements.yml file and install it with ansible-galaxy collection install -r requirements.yml, using the format:
+```sh
+collections:
+  - name: ibm.ibm_zos_cics
+```
+
+
+To install a specific version of the collection or upgrade an an existing installation to a specific version, for example installing 2.1.0, use the following syntax:
+```sh
+ansible-galaxy collection install ibm.ibm_zos_cics:2.1.0
+```
+
+
+If you want to upgrade the collection to the latest version, you can run:
+```sh
+ansible-galaxy collection install ibm.ibm_zos_cics --upgrade
+```
+
+## Use Cases
+
+* Use Case Name: Provision region data sets
+  * Actors:
+    * System Programmer
+  * Description:
+    * A system programmer can provision a set of region data sets such as the Global Catalog data set, Local Catalog data 
+      set and CSD data set.
+  * Flow:
+    * abc
+* Use Case Name: Deprovision region data sets
+  * Actors:
+    * System Programmer
+  * Description:
+    * A system programmer can deprovision a set of region data sets such as the Global Catalog data set, Local Catalog data 
+      set and CSD data set.
+  * Flow:
+    * abc
+* Use Case Name: Start a CICS region
+  * Actors:
+    * System Programmer
+  * Description:
+    * A system programmer can start a CICS region with their provisioned region data sets
+  * Flow:
+    * Verify they have provisioned the region data sets correctly.
+    * 
+
+
+
+## Release Notes and Roadmap
+
+
 ## Contributing
 
 We welcome contributions! Find out how in our [contribution guide](https://github.com/ansible-collections/ibm_zos_cics/blob/main/CONTRIBUTING.md).
