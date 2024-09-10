@@ -49,7 +49,8 @@ and ansible-doc to:
 The tasks in the IBM® z/OS® CICS® collection can be classified into two types, CMCI tasks and provisioning tasks, that have different requirements of the managed node.
 
 The CMCI tasks in the IBM® z/OS® CICS® collection interact with the managed node over an HTTP connection by leveraging the CMCI REST API. Therefore, an SSH connection is not required. Instead, you can delegate Ansible tasks to run on the control node, for example, by specifying delegate_to: 'localhost' for the task in the playbook. In this case, you install dependencies on your localhost instead of the managed node.
-The requirements of the managed node for CMCI tasks are as follows:
+
+The requirements of the managed node for **CMCI tasks** are as follows:
 
  * z/OS Version 2.3 or later
 
@@ -64,7 +65,7 @@ The requirements of the managed node for CMCI tasks are as follows:
    * xmltodict
 
 
-The provisioning tasks in the IBM® z/OS® CICS® collection interact with a z/OS managed node over SSH, and therefore have different requirements to the CMCI tasks. 
+The **provisioning tasks** in the IBM® z/OS® CICS® collection interact with a z/OS managed node over SSH, and therefore have different requirements to the CMCI tasks. 
 The requirements include installation of the following components
 
  * z/OS Version 2.3 or later
