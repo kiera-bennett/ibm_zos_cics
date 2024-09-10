@@ -44,9 +44,16 @@ and ansible-doc to:
 - Provision or deprovision CICS regions.
 - Start or stop a CICS region.
 
+## Requirements
+
+Before you install the CICS collection, there are a few requirements which should also be met.
+
+  * Python 3.9 or later IS THIS RIGHT? PROVISIONING STUFF NEEDS 3.9, CMCI CAN BE LIKE 2.7
+  * Ansible 2.15 or later
+  * ZOAU 1.2.X
+  * IBM z/OS Core Ansible collection 1.9.0 or later
   
 ## Installation
-
 
 You can install this collection with the Ansible Galaxy command-line tool:
 ```sh
@@ -72,37 +79,93 @@ If you want to upgrade the collection to the latest version, you can run:
 ansible-galaxy collection install ibm.ibm_zos_cics --upgrade
 ```
 
+As part of the installation, the collection requirements must be made available to Ansible through the use of environment variables. The preferred configuration is to place the environment variables in group_vars and host_vars. An example of the variables file can be seen here:
+
+
+```sh
+pyz: "path_to_python_installation_on_zos_target"
+zoau: "path_to_zoau_installation_on_zos_target"
+
+environment_vars:
+  _BPXK_AUTOCVT: "ON"
+  ZOAU_HOME: "{{ zoau }}"
+  PYTHONPATH: "{{ zoau }}/lib"
+  LIBPATH: "{{ zoau }}/lib:{{ pyz }}/lib:/lib:/usr/lib:."
+  PATH: "{{ zoau }}/bin:{{ pyz }}/bin:/bin:/var/bin"
+  _CEE_RUNOPTS: "FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
+  _TAG_REDIR_ERR: "txt"
+  _TAG_REDIR_IN: "txt"
+  _TAG_REDIR_OUT: "txt"
+  LANG: "C"
+```
+
 ## Use Cases
 
-* Use Case Name: Provision region data sets
+* Use Case Name: Provision a standalone CICS region 
   * Actors:
     * System Programmer
   * Description:
-    * A system programmer can provision a set of region data sets such as the Global Catalog data set, Local Catalog data 
-      set and CSD data set.
+    * A system programmer can provision a set of region data sets and start up a standalone CICS region.
   * Flow:
-    * abc
-* Use Case Name: Deprovision region data sets
+    * Create and activate a VTAM node to ensure user had a valid applid
+    * Ensure user has CICS data sets, e.g SDFHLIC, SDFHAUTH etc.
+    * Create region data sets
+    * Update the CSD data set with a CSDUP script
+    * Create CICS startup JCL data set
+    * Submit the CICS startup JCL data set as a job using z/OS Core's job submit module
+* Use Case Name: Deprovision a standalone CICS region
   * Actors:
     * System Programmer
   * Description:
-    * A system programmer can deprovision a set of region data sets such as the Global Catalog data set, Local Catalog data 
-      set and CSD data set.
+    * A system programmer can stop a standalone cics region and delete the region data sets.
   * Flow:
-    * abc
-* Use Case Name: Start a CICS region
+    * Stop the CICS region
+    * Delete the region data sets
+    * Delete the CICS startup JCL data set
+* Use Case Name: Provision an SMSS CICS region
   * Actors:
     * System Programmer
   * Description:
-    * A system programmer can start a CICS region with their provisioned region data sets
+    * A system programmer can start a SMSS CICS region.
   * Flow:
-    * Verify they have provisioned the region data sets correctly.
-    * 
-
+    * Create and activate a VTAM node to ensure user had a valid applid
+    * Ensure user has access to CICS data sets, e.g SDFHLIC, SDFHAUTH etc.
+    * Ensure user has access to CPSM data sets
+    * Ensure user has an allocated/free port available
+    * Create region data sets
+    * Update the CSD data with a CSDUP script which also alters the TCPIP service
+    * Create CICS startup JCL data set
+    * Submit the CICS startup JCL data set as a job using z/OS Core's job submit module
+ * Use Case Name: Install a bundle in a CICS region
+  * Actors:
+    * Application Developer
+  * Description:
+    * An application developer can install a CICS bundle into a CICS region
+  * Flow:
+    * Start up a CICS region
+    * Create a CICS bundle
+    * JNJDNJKS
+    * Install into a CICS region
 
 
 ## Release Notes and Roadmap
 
+The collection's cumulative release notes can be reviewed [here](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html).
+
+<br/>The collection's changelogs can be reviewed in the following table.
+
+| Version  | Status         | Release notes | Changelogs |
+|----------|----------------|---------------|------------|
+| 2.2.x   | In development | unreleased    | unreleased |
+| 2.1.x   | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-2-1-0)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v2.1.0/CHANGELOG.rst)  |
+| 2.0.x    | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-2-0-0)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v2.0.0/CHANGELOG.rst)  |
+| 1.0.x    | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-1-0-6)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v1.0.6/CHANGELOG.rst)  |
+
+
+## Related Information 
+
+Example playbooks and use cases can be be found in the [z/OS playbook repository](https://github.com/IBM/z_ansible_collections_samples).
+Supplemental content on getting started with Ansible, architecture and use cases is available [here](https://ibm.github.io/z_ansible_collections_doc/reference/helpful_links.html).
 
 ## Contributing
 
