@@ -46,12 +46,42 @@ and ansible-doc to:
 
 ## Requirements
 
-Before you install the CICS collection, there are a few requirements which should also be met.
+The tasks in the IBM® z/OS® CICS® collection can be classified into two types, CMCI tasks and provisioning tasks, that have different requirements of the managed node.
 
-  * Python 3.9 or later IS THIS RIGHT? PROVISIONING STUFF NEEDS 3.9, CMCI CAN BE LIKE 2.7
-  * Ansible 2.15 or later
-  * ZOAU 1.2.X
-  * IBM z/OS Core Ansible collection 1.9.0 or later
+The CMCI tasks in the IBM® z/OS® CICS® collection interact with the managed node over an HTTP connection by leveraging the CMCI REST API. Therefore, an SSH connection is not required. Instead, you can delegate Ansible tasks to run on the control node, for example, by specifying delegate_to: 'localhost' for the task in the playbook. In this case, you install dependencies on your localhost instead of the managed node.
+The requirements of the managed node for CMCI tasks are as follows:
+
+ * z/OS Version 2.3 or later
+
+ * All IBM CICS TS releases that are in service
+
+ * A CMCI connection must be set up in either a CICSplex or a stand-alone CICS region
+
+ * Python module dependencies:
+
+   * requests
+
+   * xmltodict
+
+
+The provisioning tasks in the IBM® z/OS® CICS® collection interact with a z/OS managed node over SSH, and therefore have different requirements to the CMCI tasks. 
+The requirements include installation of the following components
+
+ * z/OS Version 2.3 or later
+
+ * z/OS OpenSSH
+
+ * IBM Open Enterprise SDK for Python (previously IBM Open Enterprise Python for z/OS)
+
+ * IBM Z Open Automation Utilities (ZOAU) 1.2.x
+
+ * The z/OS shell
+   
+Note that you must have z/OS core collection 1.5.0 or later installed in the control node if you want to run the provisioning tasks.
+
+For more details on the different requirements, please see [here](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/requirements_managed.html).
+
+
   
 ## Installation
 
