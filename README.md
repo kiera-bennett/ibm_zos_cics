@@ -78,7 +78,7 @@ The requirements include installation of the following components
 
  * The z/OS shell
    
-Note that you must have z/OS core collection 1.5.0 or later installed in the control node if you want to run the provisioning tasks.
+Note that you must have z/OS core collection 1.5.0 to 1.9.2 installed in the control node if you want to run the provisioning tasks.
 
 For more details on the different requirements, please see [here](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/requirements_managed.html).
 
@@ -193,8 +193,8 @@ The collection's cumulative release notes can be reviewed [here](https://ibm.git
 
 | Version  | Status         | Release notes | Changelogs |
 |----------|----------------|---------------|------------|
-| 2.2.x   | In development | unreleased    | unreleased |
-| 2.1.x   | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-2-1-0)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v2.1.0/CHANGELOG.rst)  |
+| 2.1.x   | In development | unreleased    | unreleased |
+| 2.1.0   | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-2-1-0)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v2.1.0/CHANGELOG.rst)  |
 | 2.0.x    | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-2-0-0)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v2.0.0/CHANGELOG.rst)  |
 | 1.0.x    | Released       | [Release notes](https://ibm.github.io/z_ansible_collections_doc/ibm_zos_cics/docs/source/release_notes.html#version-1-0-6)    | [Changelogs](https://github.com/ansible-collections/ibm_zos_cics/blob/v1.0.6/CHANGELOG.rst)  |
 
