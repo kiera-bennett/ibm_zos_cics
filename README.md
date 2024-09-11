@@ -139,11 +139,10 @@ environment_vars:
     * A system programmer can provision a set of region data sets and start up a standalone CICS region.
   * Flow:
     * Create and activate a VTAM node to ensure user had a valid applid
-    * Ensure user has CICS data sets, e.g SDFHLIC, SDFHAUTH etc.
     * Create region data sets
     * Update the CSD data set with a CSDUP script
     * Create CICS startup JCL data set
-    * Submit the CICS startup JCL data set as a job using z/OS Core's job submit module
+    * Submit the CICS startup JCL data set as a job using zoau's jsub.
 * Use Case Name: Deprovision a standalone CICS region
   * Actors:
     * System Programmer
@@ -151,6 +150,8 @@ environment_vars:
     * A system programmer can stop a standalone cics region and delete the region data sets.
   * Flow:
     * Stop the CICS region
+    * Check the CICS region has been shut down
+    * If it has not stopped, shut the region down with state "immediate" or cancel the job.
     * Delete the region data sets
     * Delete the CICS startup JCL data set
 * Use Case Name: Provision an SMSS CICS region
@@ -160,8 +161,6 @@ environment_vars:
     * A system programmer can start a SMSS CICS region.
   * Flow:
     * Create and activate a VTAM node to ensure user had a valid applid
-    * Ensure user has access to CICS data sets, e.g SDFHLIC, SDFHAUTH etc.
-    * Ensure user has access to CPSM data sets
     * Ensure user has an allocated/free port available
     * Create region data sets
     * Update the CSD data with a CSDUP script which also alters the TCPIP service
@@ -173,11 +172,18 @@ environment_vars:
   * Description:
     * An application developer can install a CICS bundle into a CICS region
   * Flow:
-    * Start up a CICS region
-    * Create a CICS bundle
-    * JNJDNJKS
-    * Install into a CICS region
-
+    * Find if the CICS bundle already exists in target region
+    * Disable and discard existing CICS bundle
+    * Install bundle definition into target region
+    * Wait for bundle to reach enabled status
+ * Use Case Name: Deploy a program to a CICS region
+  * Actors:
+    * Application Developer
+  * Description:
+    * An application developer can deploy a program to a CICS region
+  * Flow:
+    * Copy load module to load library
+    * Use NEWCOPY PROGRAM to deploy program into CICS
 
 ## Release Notes and Roadmap
 
