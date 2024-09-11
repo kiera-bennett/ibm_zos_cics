@@ -165,7 +165,7 @@ environment_vars:
     * Create region data sets
     * Update the CSD data with a CSDUP script which also alters the TCPIP service
     * Create CICS startup JCL data set
-    * Submit the CICS startup JCL data set as a job using z/OS Core's job submit module
+    * Submit the CICS startup JCL data set as a job using zoau's jsub task
  * Use Case Name: Install a bundle in a CICS region
   * Actors:
     * Application Developer
